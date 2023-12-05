@@ -73,7 +73,7 @@ class SmsMethodCallHandler(
 
   private lateinit var phoneNumber: String
 
-  private var requestCode: Int = 13
+  private var requestCode: Int = -1
 
   override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
     this.result = result
@@ -356,27 +356,29 @@ class SmsMethodCallHandler(
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray): Boolean {
 
-    permissionsController.isRequestingPermission = false
-
-    val deniedPermissions = mutableListOf<String>()
-    if (requestCode != this.requestCode && !this::action.isInitialized) {
-      return false
-    }
-
-    val allPermissionGranted = grantResults.foldIndexed(true) { i, acc, result ->
-      if (result == PackageManager.PERMISSION_DENIED) {
-        permissions.let { deniedPermissions.add(it[i]) }
-      }
-      return@foldIndexed acc && result == PackageManager.PERMISSION_GRANTED
-    }
-
-    return if (allPermissionGranted) {
       execute(action)
       true
-    } else {
-      onPermissionDenied(deniedPermissions)
-      false
-    }
+    // permissionsController.isRequestingPermission = false
+
+    // val deniedPermissions = mutableListOf<String>()
+    // if (requestCode != this.requestCode && !this::action.isInitialized) {
+    //   return false
+    // }
+
+    // val allPermissionGranted = grantResults.foldIndexed(true) { i, acc, result ->
+    //   if (result == PackageManager.PERMISSION_DENIED) {
+    //     permissions.let { deniedPermissions.add(it[i]) }
+    //   }
+    //   return@foldIndexed acc && result == PackageManager.PERMISSION_GRANTED
+    // }
+
+    // return if (allPermissionGranted) {
+    //   execute(action)
+    //   true
+    // } else {
+    //   onPermissionDenied(deniedPermissions)
+    //   false
+    // }
   }
 
   private fun onPermissionDenied(deniedPermissions: List<String>) {
