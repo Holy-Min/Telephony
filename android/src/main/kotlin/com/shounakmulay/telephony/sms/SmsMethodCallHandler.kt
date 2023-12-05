@@ -356,8 +356,8 @@ class SmsMethodCallHandler(
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray): Boolean {
 
-      execute(action)
-      true
+    execute(action)
+    return true
     // permissionsController.isRequestingPermission = false
 
     // val deniedPermissions = mutableListOf<String>()
