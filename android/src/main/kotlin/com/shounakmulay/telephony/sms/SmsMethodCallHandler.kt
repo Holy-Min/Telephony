@@ -73,7 +73,7 @@ class SmsMethodCallHandler(
 
   private lateinit var phoneNumber: String
 
-  private var requestCode: Int = -1
+  private var requestCode: Int = 824682
 
   override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
     this.result = result
