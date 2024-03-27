@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Process
 import android.provider.Telephony
 import android.telephony.SmsMessage
+import android.util.Log
 import com.shounakmulay.telephony.utils.Constants
 import com.shounakmulay.telephony.utils.Constants.HANDLE
 import com.shounakmulay.telephony.utils.Constants.HANDLE_BACKGROUND_MESSAGE
@@ -43,6 +44,7 @@ class IncomingSmsReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent?) {
+        Log.i("SmsReceiver Package", "Intent Action : ${intent?.action}")
         ContextHolder.applicationContext = context.applicationContext
         val smsList = Telephony.Sms.Intents.getMessagesFromIntent(intent)
         val messagesGroupedByOriginatingAddress = smsList.groupBy { it.originatingAddress }
